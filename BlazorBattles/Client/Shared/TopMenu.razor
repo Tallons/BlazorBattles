@@ -1,14 +1,20 @@
-﻿<div >
-@Food Food
-	<AddFood FoodAdded="AddFoodStockpile" />
+﻿@using BlazorBattles.Client.Services
+@inject IFoodService FoodService
+@implements IDisposable
+
+<div >
+@FoodService.Food Food
+	<AddFood />
 </div>
 
 @code {
-	[Parameter]
-	public int Food { get; set; } = 100;
-
-	public void AddFoodStockpile(int value)
+	protected override void OnInitialized()
 	{
-		Food += value;
+		FoodService.OnChange += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		FoodService.OnChange -= StateHasChanged;
 	}
 }

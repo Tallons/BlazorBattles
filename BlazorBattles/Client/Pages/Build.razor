@@ -1,8 +1,17 @@
 ﻿@page "/build"
+@using BlazorBattles.Client.Services
+@inject IFoodService FoodService; 
 
 <h3>Build</h3>
 
+<button class="btn btn-info" @onclick="() => EatFood(25)">Warrior</button>
 
 @code {
+
+	private void EatFood(int amount)
+	{
+		FoodService.EatFood(amount);
+		Console.WriteLine($" Amount: {amount}");
+	}
 
 }
