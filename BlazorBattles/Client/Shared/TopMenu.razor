@@ -1,0 +1,14 @@
+﻿<div >
+@Food Food
+	<AddFood FoodAdded="AddFoodStockpile" />
+</div>
+
+@code {
+	[Parameter]
+	public int Food { get; set; } = 100;
+
+	public void AddFoodStockpile(int value)
+	{
+		Food += value;
+	}
+}
