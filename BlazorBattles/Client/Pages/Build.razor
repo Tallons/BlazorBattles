@@ -1,8 +1,9 @@
 ﻿@page "/build"
 @using BlazorBattles.Client.Services
 @using BlazorBattles.Shared
-@inject IFoodService FoodService; 
-@inject IUnitService UnitService; 
+@inject IFoodService FoodService
+@inject IUnitService UnitService 
+@inject IToastService ToastService
 
 <h3>Build</h3>
 <div class="form-group">
@@ -15,15 +16,31 @@
 </div>
 <button class="btn btn-primary" @onclick="BuildUnit">Build</button>
 
+@if (needMoreFood)
+{
+	<div class="validation-message"> Not Enough Food = (</div>
+}
+
 @code {
 
 	int selectedUnitId = 1;
+	bool needMoreFood = false;
 
 	public void BuildUnit()
 	{
 		Unit selectedUnit = UnitService.Units.FirstOrDefault(u => u.Id == selectedUnitId);
+		
+		if (FoodService.Food < selectedUnit.FoodCost)
+		{
+			needMoreFood = true;
+			ToastService.ShowError("Not Enough Food ","= (");
+			return;
+		}
+		needMoreFood = false;
+		
 		FoodService.EatFood(selectedUnit.FoodCost);
 		UnitService.AddUnit(selectedUnitId);
+		
 	}
 
 }
