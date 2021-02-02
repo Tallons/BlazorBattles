@@ -2,10 +2,20 @@
 @inject IFoodService FoodService
 @implements IDisposable
 
-<div >
-@FoodService.Food Food
-	<AddFood />
-</div>
+<AuthorizeView>
+	<Authorized>
+		<div >
+			@FoodService.Food Food
+			<AddFood/>
+		</div>
+	</Authorized>
+	<NotAuthorized>
+		<div>
+			<NavLink href="login">Login</NavLink>
+			<NavLink href="register">Register</NavLink>
+		</div>
+	</NotAuthorized>
+</AuthorizeView>
 
 @code {
 	protected override void OnInitialized()

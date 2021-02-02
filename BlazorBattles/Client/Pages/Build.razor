@@ -4,6 +4,7 @@
 @inject IFoodService FoodService
 @inject IUnitService UnitService 
 @inject IToastService ToastService
+@attribute [Authorize]
 
 <h3>Build</h3>
 <div class="form-group">
@@ -16,10 +17,10 @@
 </div>
 <button class="btn btn-primary" @onclick="BuildUnit">Build</button>
 
-@if (needMoreFood)
-{
-	<div class="validation-message"> Not Enough Food = (</div>
-}
+@* @if (needMoreFood) *@
+@* { *@
+@* 	<div class="validation-message"> Not Enough Food = (</div> *@
+@* } *@
 
 @code {
 
