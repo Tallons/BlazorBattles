@@ -4,31 +4,43 @@
 @attribute [Authorize]
 <h3>Army</h3>
 
-@foreach (var userUnit in UnitService.MyUnits)
+@if (UnitService.Units.Count > 0)
 {
-    <div class="col-12 d-flex justify-content-around p-1">
-        <div class="col-6">
-            @switch (userUnit.UnitId)
-            {
-                case 1:
-                    <h3>Warrior img </h3>
-                    break;
-                case 2:
-                    <h3>Ranger img </h3>
-                    break;
-                case 3:
-                    <h3>Wizard img</h3>
-                    break;
-            }
+    @foreach (var userUnit in UnitService.MyUnits)
+    {
+
+        <div class="col-12 d-flex justify-content-around p-1">
+            <div class="col-6">
+                @switch (userUnit.UnitId)
+                {
+                    case 1:
+                        <h3>Warrior img </h3>
+                        break;
+                    case 2:
+                        <h3>Ranger img </h3>
+                        break;
+                    case 3:
+                        <h3>Wizard img</h3>
+                        break;
+                }
+            </div>
+            <div class="col-3">
+                @UnitService.Units.First(unit => unit.Id == userUnit.UnitId).Title
+            </div>
+            <div class="col-3">
+                @userUnit.HitPoints HP
+            </div>
         </div>
-        <div class="col-3">
-        @UnitService.Units.First(unit => unit.Id == userUnit.UnitId).Title
-        </div>
-        <div class="col-3"> 
-            @userUnit.HitPoints HP
-        </div>
-    </div>
+    }
 }
+else
+{
+    <span> Getting your units... </span>
+}
+
 @code {
-    
+    protected override async Task OnInitializedAsync()
+    {
+        await UnitService.LoadUnitsAsync();
+    }
 }
