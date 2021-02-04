@@ -36,5 +36,17 @@ namespace BlazorBattles.Server.Controllers
 
             return Ok(Response);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserLogin request)
+        {
+            var response = await _authRepo.Login(request.Email, request.Password);
+            if (!response.Success)
+            {
+                return BadRequest(request);
+            }
+
+            return Ok(response);
+        }
     }
 }
