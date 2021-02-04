@@ -3,6 +3,8 @@
 @using BlazorBattles.Client.Services
 @inject IUnitService UnitService
 @inject NavigationManager navigationManager
+@inject IAuthService AuthService
+@inject IToastService ToastService
 
 <h3>Register</h3>
 <EditForm Model="@user" OnValidSubmit="HandleRegistration">
@@ -61,9 +63,18 @@
 @code {
     UserRegister user = new UserRegister();
 
-    void HandleRegistration()
+    async void HandleRegistration()
     {
-        navigationManager.NavigateTo("Login");
+        var result = await AuthService.Register(user);
+        if (result.Success)
+        {
+            ToastService.ShowSuccess(result.Message);
+            navigationManager.NavigateTo("");
+        }
+        else
+        {
+            ToastService.ShowError(result.Message);
+        }
     }
     
     protected override async Task OnInitializedAsync()

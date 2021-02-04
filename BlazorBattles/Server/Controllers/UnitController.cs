@@ -50,7 +50,7 @@ namespace BlazorBattles.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok(dbUnit);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] 
         public async Task<IActionResult> UpdateUnits(int id)
         {
             Unit dbUnit = await _context.Units.FirstOrDefaultAsync(u => u.Id == id);
