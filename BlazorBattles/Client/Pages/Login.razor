@@ -29,7 +29,7 @@
         var result = await AuthService.Login(user);
         if (result.Success)
         {
-        await LocalStorageService.SetItemAsync<bool>("isAuthenticated", true);
+        await LocalStorageService.SetItemAsync<string>("authToken", result.Data);
         await AuthStateProvider.GetAuthenticationStateAsync();
         }
         else

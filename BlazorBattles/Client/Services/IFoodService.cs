@@ -11,5 +11,7 @@ namespace BlazorBattles.Client.Services
 		int Food { get; set; }
 		void EatFood(int amount);
 		void AddFood(int amount);
+
+		Task GetFood();
 	}
 }
